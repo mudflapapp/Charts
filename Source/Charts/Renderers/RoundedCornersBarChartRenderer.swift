@@ -3,7 +3,7 @@ import Foundation
 #if os(iOS)
 import UIKit
 
-open class RoundedCornersBarChatRenderer: BarChartRenderer {
+open class RoundedCornersBarChartRenderer: BarChartRenderer {
 
     open var cornerRadius: CGFloat = 0.0
 
