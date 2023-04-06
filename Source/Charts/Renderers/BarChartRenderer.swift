@@ -376,15 +376,15 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
              var adjustedCornerRadius: CGFloat = cornerRadius
              
              if shouldDrawStackedBarWithRoundedCornersOnlyAtTopOfBar {
-                 let overlappingBars = buffer.filter({ $0.origin.x == barRect.origin.x })
+                 let allBarsWithSameXOrigin = buffer.filter({ $0.origin.x == barRect.origin.x })
                  
-                 if overlappingBars.count > 1 {
-                     if let maxOverlappingBarHeight = overlappingBars.max(by: { $0.height < $1.height }),
-                        barRect.height >= maxOverlappingBarHeight.height {
-                         // barRect does have the largest height value, of all overlapping bars at this x-value
+                 if allBarsWithSameXOrigin.count > 1 {
+                     if let tallestBar = allBarsWithSameXOrigin.min(by: { $0.origin.y < $1.origin.y }),
+                        barRect == tallestBar {
+                         // barRect is the tallest of all overlapping bars
                          // do nothing
                      } else {
-                         // barRect does NOT have the largest height value, of all overlapping bars at this x-value
+                         // barRect is the tallest of all overlapping bars
                          adjustedCornerRadius = 0
                      }
                  }
